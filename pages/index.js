@@ -1,65 +1,57 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+// pages/index.js
+
+import { useState } from "react";
+import reviews from "./data/reviews";
+import Link from "next/link";
+import SearchBar from "../components/SearchBar/SearchBar";
 
 export default function Home() {
+  const [filteredReviews, setFilteredReviews] = useState(reviews);
+
+  const handleSearch = (query) => {
+    const lowercasedQuery = query.toLowerCase();
+    const results = reviews.filter((review) => {
+      return (
+        review.title.toLowerCase().includes(lowercasedQuery) ||
+        (review.tags &&
+          review.tags.some((tag) =>
+            tag.toLowerCase().includes(lowercasedQuery)
+          ))
+      );
+    });
+    setFilteredReviews(results);
+  };
+
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
+    <div className="container mx-auto p-8">
+      <SearchBar onSearch={handleSearch} />
+      {filteredReviews.length ? (
+        filteredReviews.map((review) => (
+          <div key={review.slug} className="mb-8">
+            <h2 className="text-2xl mb-2">{review.title}</h2>
+            {review.tags && (
+              <div className="mb-2">
+                {review.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+            <Link
+              className="text-blue-500 hover:underline"
+              href={`/reviews/${review.slug}`}
+            >
+              Leer más
+            </Link>
+          </div>
+        ))
+      ) : (
+        <p>No se encontraron artículos que coincidan con tu búsqueda.</p>
+      )}
     </div>
-  )
+  );
 }

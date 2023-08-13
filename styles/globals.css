@@ -1,16 +1,39 @@
-html,
+/* globals.css */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
 body {
-  padding: 0;
+  font-family: "Georgia", "Times New Roman", Times, serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f5f5f5;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+.container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 0 20px;
+  background-color: #fff;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
 }
 
 a {
-  color: inherit;
+  color: #0077b5;
   text-decoration: none;
 }
 
-* {
-  box-sizing: border-box;
+a:hover {
+  text-decoration: underline;
+}
+
+h1,
+h2 {
+  color: #222;
+}
+
+.prose {
+  font-size: 18px;
+  color: #444;
 }
