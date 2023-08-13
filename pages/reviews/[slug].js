@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import reviews from "../data/reviews";
+import reviews from "../../data/reviews";
 import Link from "next/link";
 import ProgressBar from "../../components/ProgressBar/ProgresBar";
 

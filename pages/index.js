@@ -1,7 +1,7 @@
 // pages/index.js
 
 import { useState } from "react";
-import reviews from "./data/reviews";
+import reviews from "../data/reviews";
 import Link from "next/link";
 import SearchBar from "../components/SearchBar/SearchBar";
 
