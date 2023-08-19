@@ -37,13 +37,21 @@ function ReviewContent({ content }) {
 
 function Review() {
   const router = useRouter();
-  const { slug } = router.query;
 
+  // Si el slug aún no está definido, simplemente devolvemos null o un spinner, por ejemplo
+  if (!router.isReady) {
+    return null; // O puedes devolver un componente spinner
+  }
+
+  const { slug } = router.query;
   const review = reviews.find((r) => r.slug === slug);
 
-  const readingTime = estimateReadingTime(review.content);
+  if (!review) {
+    console.error("No se encontró una review con el slug:", slug);
+    return <div>Error: No se encontró la review.</div>;
+  }
 
-  if (!review) return <p>No se encontró la revisión</p>;
+  const readingTime = estimateReadingTime(review.content);
 
   return (
     <>
