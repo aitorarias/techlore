@@ -5,6 +5,36 @@ import ProgressBar from "../../components/ProgressBar/ProgresBar";
 
 import { estimateReadingTime } from "../../lib/estimateReadingTime";
 
+function ReviewContent({ content }) {
+  return (
+    <>
+      {content.map((item, index) => {
+        switch (item.type) {
+          case "h2":
+            return (
+              <h2 key={index} className="text-xl mb-4">
+                {item.text}
+              </h2>
+            );
+          case "h3":
+            return (
+              <h3 key={index} className="text-lg mb-3">
+                {item.text}
+              </h3>
+            );
+          case "p":
+          default:
+            return (
+              <p key={index} className="mb-4">
+                {item.text}
+              </p>
+            );
+        }
+      })}
+    </>
+  );
+}
+
 function Review() {
   const router = useRouter();
   const { slug } = router.query;
@@ -19,6 +49,7 @@ function Review() {
     <>
       <ProgressBar />
       <div className="container mx-auto p-8">
+        <Link href={review.amazonUrl}>{review.amazonUrl}</Link>
         <img
           src={`${review.imageURL}?w=full&h=auto&c=fill&q=80&f=auto`}
           alt={review.title}
@@ -28,10 +59,8 @@ function Review() {
         <p className="text-sm text-gray-500 mb-4">
           {readingTime} min de lectura
         </p>
-        <div
-          className="prose max-w-none mb-4"
-          dangerouslySetInnerHTML={{ __html: review.content }}
-        ></div>
+        <ReviewContent content={review.content} />
+        <Link href={review.amazonUrl}>{review.amazonUrl}</Link>
         <Link href="/" className="text-sm underline">
           Volver al inicio
         </Link>
