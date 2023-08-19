@@ -1,0 +1,23 @@
+/* components/TagFilter/TagFilter.module.css */
+
+.tagContainer {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.tagContainer::-webkit-scrollbar {
+  display: none;
+}
+
+/* Ocultar la barra de desplazamiento para IE y Edge */
+.tagContainer {
+  -ms-overflow-style: none;
+}
+
+/* Firefox requiere un estilo separado */
+.tagContainer {
+  scrollbar-width: none;
+}
