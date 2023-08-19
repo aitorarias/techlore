@@ -19,18 +19,16 @@ body {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
 }
 
-a {
-  color: #0077b5;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
 h1,
-h2 {
+h2,
+h3,
+h4 {
   color: #222;
+  font-family: "sohne", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+p {
+  font-family: "Georgia", "Times New Roman", Times, serif;
 }
 
 .prose {
